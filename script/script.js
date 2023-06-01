@@ -9,7 +9,7 @@ var armaHeroi={
 }
 var adversario ={
     nome: "ilha",
-    vida: 50,
+    vida: 100,
 }
 var armaAdversario={
     nome:"fome",
@@ -19,7 +19,7 @@ var vezesAtacado=0;
 
 function main(){
     let jogo=true;
-    let quemJoga=gerarNumeroAleatorio(1, 2);
+    let quemJoga=gerarNumeroAleatorio(0, 2);
     do{
     let comida = gerarNumeroAleatorio(1,50);
     if(quemJoga%2==0){
@@ -36,12 +36,16 @@ function main(){
         if(escolha==1){
             ataqueHeroi();
         }
-        if(escolha==2){
+        else if(escolha==2){
             defesaHeroi();
         }
-        if(escolha==3){
+        else if(escolha==3){
             recuperarVida(comida);
         }
+        else{
+            jogo=false;
+        }
+
     }
     else{
         console.log("A ilha começa!");
@@ -52,39 +56,54 @@ function main(){
 }
 function ataqueHeroi(){
     adversario.vida-=armaHeroi.dano;
-    armaHeroi.dano+=2;
     console.log("Wilson jogou chuck na ilha e tirou "+armaHeroi.dano+"de dano!");
     console.log("A ilha ficou com "+adversario.vida+"de vida");
+    armaHeroi.dano+=2;
 }
 
 function defesaHeroi(){
-    heroi.vida-=(armaAdversario.dano/2);
+    armaAdversario.dano/=2
+    let dano=armaAdversario.dano;
+    heroi.vida-=dano;
     console.log("Você se defendeu! no fim das contas...")
     console.log("A ilha te deu "+armaAdversario.dano+"de dano!");
     console.log("E Wilson ficou com "+heroi.vida+"de vida");
 }
 
 function ataqueIlha(){
-    heroi.vida-=armaAdversario.dano;
-    armaAdversario.dano+=1.5;
+    if(adversario.vida<=50){
+        armaAdversario.dano*=2;
+        heroi.vida-=armaAdversario.dano;
+    }
+    else{
+        heroi.vida-=armaAdversario.dano;
+    }
     console.log("A ilha te deu "+armaAdversario.dano+"de dano!");
     console.log("E Wilson ficou com "+heroi.vida+"de vida");
+    armaAdversario.dano+=1.5;
     vezesAtacado++;
 }
 
 function recuperarVida(comida){
     if(comida>=25){
-        heroi.vida+5;
+        heroi.vida+=5;
         console.log("Wilson comeu uma banana, e recuperou 5 de vida, agora esta com "+heroi.vida);
     }
-    else if(comida>10 && comida<25){
-        heroi.vida+15;
+    else if(comida>=10 && comida<25){
+        heroi.vida+=15;
         console.log("Wilson comeu uma melancia, e recuperou 15 de vida, agora esta com "+heroi.vida);
     }
-    else{
-        heroi.vida+30;
-        console.log("Wilson comeu um bife enorme, e recuperou 30 de vida, agora esta com "+heroi.vida);
+    else if(comida>=2 && comida<10){
+        heroi.vida+=30;
+        console.log("Wilson comeu um bife enorme, e recuperou 65 de vida, agora esta com "+heroi.vida);
     }
+    else{
+        heroi.vida+=65;
+        armaHeroi.dano*=armaHeroi.dano;
+        console.log("Wilson comeu um XIS RAFAO, e recuperou 65 de vida, agora esta com "+heroi.vida);
+        console.log("E agora seu dano foi dobrado");
+    }
+
     return heroi.vida;
 }
 
