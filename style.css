@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body{
+    background-image: url(./midias/craiyon_112700_imagine_uma_ilha_no_meio_do_mar.png);
+    background-repeat: no-repeat;
+      background-size: cover;
+}
+h1{
+    font-family: 'Press Start 2P', cursive;
+}
+#jogo{
+    display: none;
+}
+#tres{
+    display: none;
+}
