@@ -8,7 +8,7 @@ body{
 h1{
     font-family: 'Press Start 2P', cursive;
 }
-#jogo{
+.jogo{
     display: none;
 }
 .opp3{

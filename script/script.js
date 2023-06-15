@@ -25,18 +25,23 @@ var resp1;
 var resp2;
 var resp3;
 
+var vidaChuck=document.querySelector(".vidaChuck");
+vidaChuck.innerHTML=heroi.vida;
+var vidaIlha=document.querySelector(".vidaIlha");
+vidaIlha.innerHTML=heroi.vida;
+
 async function main(){
-    var inicioTela=document.querySelector("#jogo");
+    var inicioTela=document.querySelector(".jogo");
     var opp31=document.querySelector("#opp31");
     var opp32=document.querySelector("#opp32");
     var botao3 = document.querySelector("#tres");
     
-
     inicioTela.style.display='block';
     h3Jogador = document.querySelector('#jogador');
     resp1=document.querySelector("#respLinha1");
     resp2=document.querySelector("#respLinha2");
     resp3=document.querySelector("#respLinha3");
+    vencedor=document.querySelector("#vencedor");
     var jogo=true;
     do{
     comida = gerarNumeroAleatorio(1,50);
@@ -73,15 +78,18 @@ async function main(){
 
     }
     else{
-        ataqueIlha();
+        await ataqueIlha();
         
     }
     if(adversario.vida<=0){
-        console.clear();
+        inicioTela.style.display='none';
+        vencedor.innerHTML='You Win';
         console.log("You Win");
         jogo=false;
     }
     if(heroi.vida<=0){
+        inicioTela.style.display='none';
+        vencedor.innerHTML='Game Over';
         console.log("Game Over");
         jogo=false;
     }
@@ -98,6 +106,7 @@ async function ataqueHeroi(){
     resp1.innerHTML = "";
     resp2.innerHTML = "";
     armaHeroi.dano+=2;
+
 }
 
 async function defesaHeroi(){
@@ -183,13 +192,16 @@ function aguardarBotao() {
       var botao2 = document.querySelector("#dois");
       var botao3 = document.querySelector("#tres");
   
-      botao1.addEventListener("click", function() {
+      botao1.addEventListener("click", async function() {
+        await ataqueHeroi();
         resolve();
       });
-      botao2.addEventListener("click", function() {
+      botao2.addEventListener("click", async function() {
+        await defesaHeroi();
         resolve();
       });
-      botao3.addEventListener("click", function() {
+      botao3.addEventListener("click", async function() {
+        await recuperarVida(comida);
         resolve();
       });
     });
