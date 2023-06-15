@@ -25,12 +25,17 @@ var resp1;
 var resp2;
 var resp3;
 
-var vidaChuck=document.querySelector(".vidaChuck");
-vidaChuck.innerHTML=heroi.vida;
-var vidaIlha=document.querySelector(".vidaIlha");
-vidaIlha.innerHTML=heroi.vida;
+var vidaChuck;
+var vidaIlha;
+
+var barraChuck;
+var barraIlha;
+
+var porcent= "%";
 
 async function main(){
+    barraChuck=document.querySelector("#barraVidaChuck");
+    barraIlha=document.querySelector("#barraVidaIlha");
     var inicioTela=document.querySelector(".jogo");
     var opp31=document.querySelector("#opp31");
     var opp32=document.querySelector("#opp32");
@@ -41,7 +46,9 @@ async function main(){
     resp1=document.querySelector("#respLinha1");
     resp2=document.querySelector("#respLinha2");
     resp3=document.querySelector("#respLinha3");
-    vencedor=document.querySelector("#vencedor");
+    var vencedor=document.querySelector("#vencedor");
+    vidaChuck=document.querySelector("#vidaChuck");
+    vidaIlha=document.querySelector("#vidaIlha");
     var jogo=true;
     do{
     comida = gerarNumeroAleatorio(1,50);
@@ -102,22 +109,28 @@ async function ataqueHeroi(){
     console.log("A ilha ficou com "+adversario.vida+" de vida");
     resp1.innerHTML = "Wilson jogou chuck na ilha e tirou "+armaHeroi.dano+"de dano!";
     resp2.innerHTML = "A ilha ficou com "+adversario.vida+" de vida";
+    vidaIlha.innerHTML=adversario.vida;
+    barraIlha.style.backgroundSize=adversario.vida+ "%" ;
     await esperarTempo(2000);
     resp1.innerHTML = "";
     resp2.innerHTML = "";
     armaHeroi.dano+=2;
+    
 
 }
 
 async function defesaHeroi(){
     armaAdversario.dano/=2;
     heroi.vida-=armaAdversario.dano;
+    armaAdversario.dano*=2;
     console.log("Você se defendeu! no fim das contas...")
     console.log("A ilha te deu "+armaAdversario.dano +"de dano!");
     console.log("E Wilson ficou com "+heroi.vida+" de vida");
     resp1.innerHTML = "Você se defendeu! no fim das contas...";
     resp2.innerHTML = "A ilha te deu "+armaAdversario.dano +"de dano!";
     resp3.innerHTML = "E Wilson ficou com "+heroi.vida+" de vida";
+    vidaChuck.innerHTML=heroi.vida;
+    barraChuck.style.backgroundSize=heroi.vida+"%";
     await esperarTempo(2000);
     resp1.innerHTML = "";
     resp2.innerHTML = "";
@@ -137,12 +150,14 @@ async function ataqueIlha(){
     console.log("A ilha te deu "+armaAdversario.dano+"de dano!");
     console.log("E Wilson ficou com "+heroi.vida+" de vida");
     h3Jogador.innerHTML = 'A ilha começa!';
-        console.log("A ilha começa!");
-        resp1.innerHTML = "A ilha te deu "+armaAdversario.dano+" de dano!";
-        resp2.innerHTML = "E Wilson ficou com "+heroi.vida+" de vida";
-        await esperarTempo(2000);
-        resp1.innerHTML = "";
-        resp2.innerHTML = "";
+    console.log("A ilha começa!");
+    resp1.innerHTML = "A ilha te deu "+armaAdversario.dano+" de dano!";
+    resp2.innerHTML = "E Wilson ficou com "+heroi.vida+" de vida";
+    vidaChuck.innerHTML=heroi.vida;
+    barraChuck.style.backgroundSize=heroi.vida+"%";
+    await esperarTempo(2000);
+    resp1.innerHTML = "";
+    resp2.innerHTML = "";
     armaAdversario.dano+=1.5;
     vezesAtacado++;
 }
@@ -152,6 +167,8 @@ async function recuperarVida(comida){
         heroi.vida+=5;
         console.log("Wilson comeu uma banana, e recuperou 5 de vida, agora esta com "+heroi.vida);
         resp1.innerHTML = "Wilson comeu uma banana, e recuperou 65 de vida, agora esta com "+heroi.vida;
+        vidaChuck.innerHTML=heroi.vida;
+        barraChuck.style.backgroundSize=heroi.vida+"%";
         await esperarTempo(2000);
         resp1.innerHTML = "";
     }
@@ -159,6 +176,8 @@ async function recuperarVida(comida){
         heroi.vida+=15;
         console.log("Wilson comeu uma melancia, e recuperou 15 de vida, agora esta com "+heroi.vida);
         resp1.innerHTML = "Wilson comeu uma melancia, e recuperou 65 de vida, agora esta com "+heroi.vida;
+        vidaChuck.innerHTML=heroi.vida;
+        barraChuck.style.backgroundSize=heroi.vida+"%";
         await esperarTempo(2000);
         resp1.innerHTML = "";
     }
@@ -166,6 +185,8 @@ async function recuperarVida(comida){
         heroi.vida+=30;
         console.log("Wilson comeu um bife enorme, e recuperou 30 de vida, agora esta com "+heroi.vida);
         resp1.innerHTML = "Wilson comeu um bife enorme, e recuperou 65 de vida, agora esta com "+heroi.vida;
+        vidaChuck.innerHTML=heroi.vida;
+        barraChuck.style.backgroundSize=heroi.vida+"%";
         await esperarTempo(2000);
         resp1.innerHTML = "";
     }
@@ -176,12 +197,13 @@ async function recuperarVida(comida){
         console.log("E agora seu dano foi dobrado e o adversario não joga");
         resp1.innerHTML = "Wilson comeu um XIS RAFAO, e recuperou 65 de vida, agora esta com "+heroi.vida;
         resp2.innerHTML = "E agora seu dano foi dobrado e o adversario não joga";
+        vidaChuck.innerHTML=heroi.vida;
+        barraChuck.style.backgroundSize=heroi.vida+"%";
         await esperarTempo(2000);
         resp1.innerHTML = "";
         resp2.innerHTML = "";
         quemJoga++;
     }
-
     return heroi.vida;
 }
 

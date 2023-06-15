@@ -17,3 +17,17 @@ h1{
 #tres{
     display: none;
 }
+#barraVidaChuck{
+    width: 100px; 
+    height: 30px; 
+    border: 2px solid #651212;
+    background-color: #c92424;
+    background-size:100%;
+}
+#barraVidaIlha{
+    width: 100px; 
+    height: 30px; 
+    border: 2px solid #651212;
+    background-color: #c92424;
+    background-size:100%;
+}
